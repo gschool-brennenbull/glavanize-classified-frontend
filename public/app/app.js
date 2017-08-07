@@ -13,6 +13,8 @@
     vm.$onInit = function () {
       vm.clicked = false;
       vm.posts = [];
+      vm.customSort = 'price';
+      vm.reverse = true;
       $http({
           method: 'GET',
           url: 'https://stark-mesa-75466.herokuapp.com/classifieds/'

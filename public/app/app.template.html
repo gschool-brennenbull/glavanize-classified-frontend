@@ -1,5 +1,23 @@
 <h1>Galvanize Classifieds</h1>
-<p><a class="btn btn-info" ng-click="$ctrl.isClicked()">Post an Ad</a></p>
+<p><a class="btn btn-info" ng-click="$ctrl.isClicked()">Post an Ad</a>
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active">
+      <input type="search" class="form-control input-sm search-form" placeholder="Search" ng-model="customFilter">
+    </li>
+    <li class="form-inline">
+      <a href="#"
+        class="dropdown-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false">Sort By {{$ctrl.customSort}}</a>
+      <ul class="dropdown-menu">
+        <li><a ng-click="$ctrl.customSort='price'; $ctrl.switchOrder($ctrl.customSort);">price</a></li>
+        <li><a ng-click="$ctrl.customSort='title'; $ctrl.switchOrder($ctrl.customSort);">title</a></li>
+      </ul>
+    </li>
+  </ul>
+</p>
 <div ng-if="$ctrl.clicked" class="row">
   <div class="col-md-8">
     <form name="newPostForm" ng-submit="$ctrl.newPost()">
@@ -30,9 +48,11 @@
 <div ng-repeat="post in $ctrl.posts | filter: customFilter | orderBy: $ctrl.customSort:$ctrl.reverse" class="row">
   <div class="col-md-12">
     <div class="well">
+
       <div class="media-left">
         <img class="media-object" ng-src="{{post.item_image}}">
       </div>
+
       <div class="media-body">
         <h4 class="media-heading">
           {{post.title}}
@@ -44,39 +64,39 @@
           {{post.description}}
         </p>
         <div>
-        </div>
-        <div>
           <p><a class="btn btn-info" ng-click="$ctrl.showEdit(post)">Edit Ad</a>
-          <a class="btn btn-danger" ng-click="$ctrl.deleteAd(post)">Delete</a></p>
-        </div>
-        <div ng-if='post.show' class="row">
-          <div class="col-md-offset-1">
-            <form name="postEdit" class="form-inline" ng-submit="$ctrl.editPost(post)">
-              <div>
-                <label for="title">Title</label>
-                <input ng-model="post.title" id="title" class="form-control" required>
-              </div>
-              <div>
-                <label for="description">Description</label>
-                <textarea ng-model="post.description" id="descirption" class="form-control" required></textarea>
-              </div>
-              <div>
-                <label for="price">Price</label>
-                <input ng-model="post.price" id="author" class="form-control" required>
-              </div>
-              <div>
-                <label for="image-url">Image URL</label>
-                <input ng-model="post.item_image" id="image-url" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary" ng-disabled="postEdit.$invalid || postEdit.$pending">
-                  Post Edit
-                </button>
-              </div>
-            </form>
+            <a class="btn btn-danger" ng-click="$ctrl.deleteAd(post)">Delete</a></p>
           </div>
+      </div>
+
+      <div ng-if='post.show' class="row">
+        <div class="col-md-8">
+          <form name="postEdit" ng-submit="$ctrl.editPost(post)">
+            <div>
+              <label for="title">Title</label>
+              <input ng-model="post.title" id="title" class="form-control" required>
+            </div>
+            <div>
+              <label for="description">Description</label>
+              <textarea ng-model="post.description" id="descirption" class="form-control" required></textarea>
+            </div>
+            <div>
+              <label for="price">Price</label>
+              <input ng-model="post.price" id="author" class="form-control" required>
+            </div>
+            <div>
+              <label for="image-url">Image URL</label>
+              <input ng-model="post.item_image" id="image-url" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" ng-disabled="postEdit.$invalid || postEdit.$pending">
+                Post Edit
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+
     </div>
   </div>
 </div>
